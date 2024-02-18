@@ -1,0 +1,83 @@
+<div id="register-container" class="container">
+  <mat-card id="register-card">
+    <mat-progress-bar
+      mode="indeterminate"
+      *ngIf="isProcessing"
+      id="register-progress"
+    ></mat-progress-bar>
+    <form [formGroup]="registerForm" id="register-form">
+      <p>
+        <mat-form-field class="register-fields">
+          <input
+            matInput
+            type="text"
+            placeholder="Fullname"
+            formControlName="fullname"
+          />
+          <mat-error
+            *ngIf="isSubmitted && controlsValues.fullname.errors?.required"
+          >
+            Fullname is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="register-fields">
+          <input
+            matInput
+            type="text"
+            placeholder="Username"
+            formControlName="username"
+          />
+          <mat-error
+            *ngIf="isSubmitted && controlsValues.username.errors?.required"
+          >
+            Username is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="register-fields">
+          <input
+            matInput
+            type="email"
+            placeholder="Email"
+            formControlName="email"
+          />
+          <mat-error
+            *ngIf="isSubmitted && controlsValues.email.errors?.required"
+          >
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="register-fields">
+          <input
+            matInput
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <mat-error
+            *ngIf="isSubmitted && controlsValues.password.errors?.required"
+          >
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <div mat-dialog-actions>
+        <button
+          id="register-button"
+          class="custom-button"
+          mat-raised-button
+          color="primary"
+          (click)="onRegister()"
+          [disabled]="isProcessing"
+        >
+          Create account
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

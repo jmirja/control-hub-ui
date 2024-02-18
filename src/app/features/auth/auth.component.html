@@ -1,0 +1,16 @@
+<div id="auth-container" class="container">
+  <div id="auth-content">
+    <mat-tab-group>
+      <mat-tab label="Login">
+        <h4 id="auth-group-title">Welcome!</h4>
+        <app-login (sendLoginForm)="sendLoginForm($event)"></app-login>
+      </mat-tab>
+      <mat-tab label="Register">
+        <h4 id="auth-group-title">Create you account</h4>
+        <app-register
+          (sendRegisterForm)="sendRegisterForm($event)"
+        ></app-register>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

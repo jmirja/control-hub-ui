@@ -1,0 +1,23 @@
+<mat-toolbar color="primary" class="header-toolbar">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="toggleSidebar()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span id="app-version">Insurance Managment</span>
+    <span class="toolbar-spacer"></span>
+    <div
+      id="logout-container"
+      class="header-toolbor-menu-item-container"
+      (click)="logout()"
+    >
+      <div id="logout-icon-container">
+        <div>
+          <span class="material-icons">logout</span>
+        </div>
+      </div>
+      <div id="logout-label-container">
+        <span>LOGOUT</span>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

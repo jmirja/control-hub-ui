@@ -1,0 +1,38 @@
+#register-container {
+  height: 100vh;
+  background: #e8e7e7;
+  text-align: center;
+}
+
+#register-card {
+  max-width: 300px;
+  max-height: 50%;
+  height: fit-content;
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  overflow: hidden;
+  padding: 0;
+  text-align: left;
+  border-radius: 0;
+
+  #register-form {
+    padding: 0 1.5em 1.5em 1.5em;
+  }
+
+  #register-progress {
+    position: absolute;
+  }
+}
+
+.register-fields {
+  width: 100%;
+}
+
+#register-button {
+  width: 100%;
+  height: 44px;
+}

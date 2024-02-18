@@ -1,0 +1,33 @@
+#auth-container {
+  height: 100vh;
+  background: #e8e7e7;
+  text-align: center;
+  justify-content: center;
+}
+
+#auth-content {
+  max-width: 300px;
+  max-height: 580px;
+  height: fit-content;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  overflow: hidden;
+  padding: 0;
+  text-align: left;
+  border-radius: 0;
+
+  #auth-group-title {
+    font-size: 25px;
+    font-weight: fw-normal;
+    margin-top: 37px;
+    letter-spacing: -0.7px;
+    text-align: center;
+    line-height: 37px;
+    color: dark-grey;
+  }
+
+}

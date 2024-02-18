@@ -1,0 +1,70 @@
+<div id="edit-bank-container">
+  <div class="container">
+    <mat-tab-group class="custom-tabs">
+      <mat-tab disabled>
+        <ng-template mat-tab-label>
+          <div class="tab-header-title">
+            <span>{{ "Bank: " + data.Bank.BankName }}</span>
+          </div>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <mat-progress-bar
+    mode="indeterminate"
+    *ngIf="updatingBankInProgress"
+  ></mat-progress-bar>
+  <div id="edit-bank-dialog-content" class="dialog-content">
+    <form [formGroup]="editBankForm">
+      <div>
+        <div class="field-row field-column-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Bank Name</mat-label>
+            <input
+              matInput
+              placeholder="Enter Name"
+              formControlName="BankName"
+            />
+            <mat-error *ngIf="controlsValues.BankName.errors?.required">
+              Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Bank Id</mat-label>
+            <input
+              matInput
+              readonly
+              placeholder="Enter Bank Id"
+              formControlName="BankId"
+            />
+            <mat-error *ngIf="controlsValues.BankId.errors?.required">
+              Id is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+    <div class="custom-button-container" mat-dialog-actions align="end">
+      <button
+        mat-raised-button
+        class="custom-button"
+        color="primary"
+        (click)="updateBank()"
+        [disabled]="
+          !editBankForm.valid || (updatingBankInProgress ? true : false)
+        "
+      >
+        Update
+      </button>
+      <button
+        mat-raised-button
+        mat-dialog-close
+        class="custom-button"
+        color="primary"
+        [disabled]="updatingBankInProgress ? true : false"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>

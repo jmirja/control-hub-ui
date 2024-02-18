@@ -1,0 +1,62 @@
+@import '../../node_modules/@angular/material/theming';
+
+@mixin generate-theme-vars($theme) {
+    //default palette foreground/background:
+    $foreground-palette: map-get($theme, foreground);
+    $background-palette: map-get($theme, background);
+  
+    /////////////////////////////////////////////////
+    // SCSS VARS
+    /////////////////////////////////////////////////
+  
+    $primary: mat-color(map-get($theme, primary));       
+    $accent: mat-color(map-get($theme, accent));
+    $warn: mat-color(map-get($theme, warn));    
+    
+    $base: mat-color($foreground-palette, base);
+    $divider: mat-color($foreground-palette, divider);
+    $dividers: mat-color($foreground-palette, dividers);
+    $disabled: mat-color($foreground-palette, disabled);
+    $disabled-button: mat-color($foreground-palette, disabled-button);
+    $disabled-text: mat-color($foreground-palette, disabled-text);
+    $hint-text: mat-color($foreground-palette, hint-text);
+    $secondary-text: mat-color($foreground-palette, secondary-text);
+    $icon: mat-color($foreground-palette, icon);
+    $icons: mat-color($foreground-palette, icons);
+    $text: mat-color($foreground-palette, text);
+    $slider-off: mat-color($foreground-palette, slider-off);
+    $slider-off-active: mat-color($foreground-palette, slider-off-active);
+    
+    $status-bar: mat-color($background-palette, status-bar);
+    $app-bar: mat-color($background-palette, app-bar);
+    $background: mat-color($background-palette, background);
+    $hover: mat-color($background-palette, hover);
+    $card: mat-color($background-palette, card);
+    $dialog: mat-color($background-palette, dialog);
+    $disabled-button: mat-color($background-palette, disabled-button);
+    $raised-button: mat-color($background-palette, raised-button);
+    $focused-button: mat-color($background-palette, focused-button);
+    $selected-button: mat-color($background-palette, selected-button);
+    $selected-disabled-button: mat-color($background-palette, selected-disabled-button);
+    $disabled-button-toggle: mat-color($background-palette, disabled-button-toggle);
+    
+
+    /////////////////////////////////////////////////
+    // CSS VARS
+    /////////////////////////////////////////////////
+  
+  
+    --primary-color: #{$primary};    
+    --accent-color: #{$accent};
+    --warn-color: #{$warn};
+
+    --text-color: #{$text};
+    --background-color: #{$background};
+
+    --slider-off: #{$slider-off};
+    --slider-off-active: #{$slider-off-active};
+
+    --focused-button: #{$focused-button};
+    --disabled-button: #{$disabled-button};
+
+  }

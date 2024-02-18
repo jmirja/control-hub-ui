@@ -1,0 +1,25 @@
+#bank-panel-container {
+  overflow: hidden;
+}
+
+#bank-list-table-overlay-container {
+  display: block;
+  height: calc((100%) - 77px);
+}
+
+#bank-list-table-container.full {
+  height: calc((100%) - 77px);
+}
+
+#bank-list-table-container.paged {
+  height: calc((100%) - 115px);
+}
+
+#bank-list-table>mat-row:hover {
+  cursor: pointer;
+}
+
+#bank-list-table.mat-table {
+  max-height: 100%;
+  overflow: auto;
+}

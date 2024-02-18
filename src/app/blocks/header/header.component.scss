@@ -1,0 +1,41 @@
+.header-toolbar {
+  border-bottom: 1px solid var(--divider-color);
+}
+
+#logout-container {
+  &:hover {
+    cursor: pointer;
+  }
+
+  #logout-icon-container {
+    display: inline-block;
+    padding-right: 0.35em;
+    padding-top: 9px;
+    vertical-align: middle;
+  }
+
+  #logout-label-container {
+    display: inline-block;
+    padding-right: 0.35em;
+    font-size: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    vertical-align: middle;
+  }
+}
+
+.header-toolbor-menu-item-container:not(:first-child) {
+  padding-left: 0.7em;
+  border-left: 1px solid gray;
+  margin-left: 0.35em;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+#app-version {
+  font-size: 15px;
+  vertical-align: bottom;
+  padding-left: 5px;
+}

@@ -1,0 +1,14 @@
+.active {
+    font-weight: bold;
+    background-color: #CFCFCF;
+    color: darkred;
+  }
+  
+  .active:active {
+    font-weight: bold;
+    background-color: lightpink;
+  }
+  
+  .active-icon {
+    color: red;
+  }

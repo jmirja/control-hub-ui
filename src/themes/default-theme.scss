@@ -1,0 +1,85 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+@import "./functions.scss";
+
+// Custom pallete from http://mcg.mbitson.com
+
+$default-primary-palette: (
+    50 : #e0e2e7,
+    100 : #b3b6c4,
+    200 : #80869d,
+    300 : #4d5575,
+    400 : #263058,
+    500 : #000c3a,
+    600 : #000a34,
+    700 : #00082c,
+    800 : #000625,
+    900 : #000318,
+    A100 : #5858ff,
+    A200 : #2525ff,
+    A400 : #0000f1,
+    A700 : #0000d7,
+    contrast: (50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$default-accent-palette: (
+    50 : #fff6e4,
+    100 : #ffe8ba,
+    200 : #ffd88d,
+    300 : #ffc85f,
+    400 : #ffbd3c,
+    500 : #ffb11a,
+    600 : #ffaa17,
+    700 : #ffa113,
+    800 : #ff980f,
+    900 : #ff8808,
+    A100 : #ffffff,
+    A200 : #fff9f4,
+    A400 : #ffdec1,
+    A700 : #ffd1a7,
+    contrast: (50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$default-color-primary: mat.define-palette($default-primary-palette, 900);
+$default-color-accent: mat.define-palette($default-accent-palette, 700);
+$default-color-warn: mat.define-palette($mat-red, 900);
+
+$default-theme: mat.define-light-theme((color: (primary: $default-color-primary,
+                accent: $default-color-accent,
+                warn: $default-color-warn )));
+
+
+.default-theme {
+    @include angular-material-theme($default-theme);
+    @include generate-theme-vars($default-theme);
+}
