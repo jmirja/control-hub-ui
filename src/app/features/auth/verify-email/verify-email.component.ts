@@ -59,7 +59,7 @@ export class VerifyEmailComponent implements OnInit {
         this.isProcessing = true;
 
         let verifyEmailRequest: IRequestUserVerifyEmail = {
-            VerificationToken: this.verifyEmailForm.value.verificationToken,
+            Token: this.verifyEmailForm.value.verificationToken,
         }
 
         this.authService.verifyEmail(verifyEmailRequest).then((result) => {

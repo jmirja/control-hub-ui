@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '@core/auth/auth.service';
 import { IRequestUserLogin } from '@core/models/request/IRequestUserLogin';
 import { IRequestUserRegister } from '@core/models/request/IRequestUserRegister';
@@ -12,7 +13,10 @@ export class AuthComponent implements OnInit {
   public todayDate: Date = new Date();
   isProcessing = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
+  ) { }
 
   ngOnInit(): void {
 
@@ -34,7 +38,10 @@ export class AuthComponent implements OnInit {
       Email: String($event.email),
       Password: String($event.password),
     };
-    this.authService.register(request);
+    this.authService.register(request).then((result) => {
+      const text = `${result.Data}`;
+      this.snackBar.open(text, 'Close', { duration: 8000 });
+    });
   }
 }
 

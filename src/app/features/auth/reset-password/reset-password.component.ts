@@ -18,7 +18,7 @@ export class ResetPasswordComponent implements OnInit {
 
     forgotPasswordEvent = new EventEmitter<void>();
 
-    passwordResetToken: string;
+    resetCode: string;
 
     constructor(
         private authService: AuthService,
@@ -28,11 +28,12 @@ export class ResetPasswordComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
-        this.passwordResetToken = null;
+        this.resetCode = null;
         this.getQueryParams();
 
         this.resetPasswordForm = new FormGroup({
-            resetToken: new FormControl(this.passwordResetToken,),
+            resetCode: new FormControl(this.resetCode),
+            email: new FormControl('', [Validators.required]),
             password: new FormControl('', [Validators.required]),
         });
     }
@@ -40,10 +41,9 @@ export class ResetPasswordComponent implements OnInit {
     private getQueryParams() {
         this.route.queryParams
             .subscribe(params => {
-                this.passwordResetToken = params.passwordResetToken;
+                this.resetCode = params.resetCode;
             });
     }
-
 
     get controlsValues() {
         return this.resetPasswordForm.controls;
@@ -60,12 +60,12 @@ export class ResetPasswordComponent implements OnInit {
         this.isProcessing = true;
 
         let resetRequest: IRequestUserResetPassword = {
-            PasswordResetToken: this.resetPasswordForm.value.resetToken,
+            ResetCode: this.resetPasswordForm.value.resetCode,
+            Email: this.resetPasswordForm.value.email,
             NewPassword: this.resetPasswordForm.value.password,
         }
 
         this.authService.resetPassword(resetRequest).then((result) => {
-
             if (result.IsSuccess) {
                 this.isProcessing = false;
                 this.resetPasswordForm.enable();

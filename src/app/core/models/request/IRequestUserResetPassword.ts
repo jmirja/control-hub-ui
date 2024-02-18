@@ -1,4 +1,5 @@
 export interface IRequestUserResetPassword {
-    PasswordResetToken: string;
+    ResetCode: string;
     NewPassword: string;
+    Email: string;
 }

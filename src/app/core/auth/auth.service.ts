@@ -5,12 +5,14 @@ import { TokenStorageService } from './token-storage.service';
 import { LogService } from '../services/log.service';
 import { IRequestUserRegister } from '../models/request/IRequestUserRegister';
 import { IRequestUserLogin } from '../models/request/IRequestUserLogin';
-import { BehaviorSubject, Subject, catchError, of, throwError } from 'rxjs';
+import { BehaviorSubject, Subject, of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { routes } from '@core/constants';
-import { IToken } from '@core/models';
 import { IRequestUserResetPassword } from '@core/models/request/IRequestUserResetPassword';
 import { IRequestUserVerifyEmail } from '@core/models/request/IRequestUserVerifyEmail';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { IRequestUserForgotPassword } from '@core/models/request/IRequestUserForgotPassword';
+import { IRequestUserToken } from '@core/models/request/IRequestUserToken';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +29,7 @@ export class AuthService {
     private coreApiService: CoreApiService,
     private tokenService: TokenStorageService,
     private logService: LogService,
-    private router: Router
+    private router: Router,
   ) { }
 
   get isLoggedIn() {
@@ -55,11 +57,11 @@ export class AuthService {
   }
 
   generateRefreshToken() {
-    let request: IToken = {
+    let request: IRequestUserToken = {
       Token: this.tokenService.getJwtToken(),
       RefreshToken: this.tokenService.getRefreshToken(),
     }
-    return this.coreApiService.generateRefreshToken(request).then((token: IToken) => {
+    return this.coreApiService.generateRefreshToken(request).then((token: IRequestUserToken) => {
       return of(token);
     });
   }
@@ -77,8 +79,9 @@ export class AuthService {
     return this.coreApiService
       .register(request)
       .then((result: any) => {
-        if (result) {
+        if (result.IsSuccess) {
           this.registeredIn.next(true);
+          return result;
         }
         return result;
       })
@@ -104,7 +107,7 @@ export class AuthService {
       .catch((err: any) => { });
   }
 
-  forgotPassword(request: string) {
+  forgotPassword(request: IRequestUserForgotPassword) {
     return this.coreApiService
       .forgotPassword(request)
       .then((result: any) => {
@@ -112,7 +115,7 @@ export class AuthService {
       })
       .catch((err: any) => {
         return err;
-       });
+      });
   }
 
   resetPassword(request: IRequestUserResetPassword) {

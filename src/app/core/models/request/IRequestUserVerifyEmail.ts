@@ -1,3 +1,3 @@
 export interface IRequestUserVerifyEmail {
-    VerificationToken: string;
+    Token: string;
 }

@@ -1,38 +1,30 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { IRequestUserLogin } from '../models/request/IRequestUserLogin';
 import { IRequestUserRegister } from '../models/request/IRequestUserRegister';
-import { IToken } from '@core/models';
-import { catchError, map } from 'rxjs';
 import { IRequestUserResetPassword } from '@core/models/request/IRequestUserResetPassword';
 import { IRequestUserVerifyEmail } from '@core/models/request/IRequestUserVerifyEmail';
+import { IRequestUserForgotPassword } from '@core/models/request/IRequestUserForgotPassword';
+import { IRequestUserToken } from '@core/models/request/IRequestUserToken';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoreApiService {
-  url = environment.apiUrl;
+  private url = environment.apiUrl;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient) { }
 
-  getRequestToAPI(method: string, param: any): any {
+  private getRequestToAPI(method: string, body?: any, options?: any): any {
     let path = this.getMethodCategory(method) + '/' + method;
 
-    // Append param as query string if it exists
-    if (param) {
-      // Convert param to query string
-      const queryString = Object.keys(param)
-        .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(param[key]))
-        .join('&');
-
-      // Append query string to the path
-      path += '?' + queryString;
+    if (options) {
+      path = `${this.appendAsQueryString(options)}`
     }
 
     return this.http
-      .get(this.url + path)
+      .get(this.url + path, body)
       .toPromise()
       .then((data: any) => {
         try {
@@ -44,17 +36,12 @@ export class CoreApiService {
 
   }
 
-  postRequestToAPI(method: string, param: any): any {
-    let path = this.getMethodCategory(method) + '/' + method;
-    let body = null;
-    let params = null;
 
-    if (param) {
-      if (typeof param === 'string') {
-        path += '?' + param;
-      } else if (typeof param === 'object') {
-        body = JSON.stringify(param);;
-      }
+  private postRequestToAPI(method: string, body?: any, options?: any): any {
+    let path = this.getMethodCategory(method) + '/' + method;
+
+    if (options) {
+      path += `${this.appendAsQueryString(options)}`
     }
 
     return this.http
@@ -69,7 +56,14 @@ export class CoreApiService {
       });
   }
 
-  getMethodCategory(method: string): string {
+  private appendAsQueryString(model: any) {
+    const queryString = Object.keys(model)
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(model[key]))
+      .join('&');
+    return '?' + queryString;
+  }
+
+  private getMethodCategory(method: string): string {
     let category: string = '';
     switch (method) {
       case 'Register':
@@ -109,7 +103,7 @@ export class CoreApiService {
       });
   }
 
-  generateRefreshToken(request: IToken) {
+  generateRefreshToken(request: IRequestUserToken) {
     return this.postRequestToAPI('Refresh', request)
       .then((result: any) => {
         return result;
@@ -120,7 +114,7 @@ export class CoreApiService {
   }
 
   verifyEmail(request: IRequestUserVerifyEmail) {
-    return this.getRequestToAPI('VerifyEmail', request)
+    return this.postRequestToAPI('VerifyEmail', request)
       .then((result: any) => {
         return result;
       })
@@ -129,8 +123,8 @@ export class CoreApiService {
       });
   }
 
-  forgotPassword(email: string) {
-    return this.postRequestToAPI('ForgotPassword', email)
+  forgotPassword(request: IRequestUserForgotPassword) {
+    return this.postRequestToAPI('ForgotPassword', request)
       .then((result: any) => {
         return result;
       })
@@ -140,7 +134,7 @@ export class CoreApiService {
   }
 
   resetPassword(request: IRequestUserResetPassword) {
-    return this.getRequestToAPI('ResetPassword', request)
+    return this.postRequestToAPI('ResetPassword', request)
       .then((result: any) => {
         return result;
       })

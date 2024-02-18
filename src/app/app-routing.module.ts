@@ -11,11 +11,6 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./features/auth/auth.module').then((m) => m.AuthModule),
   },
-  {
-    path: 'banks', canActivate: [AuthGuard],
-    loadChildren: () => import('@banks/banks.module').then((m) => m.BanksModule)
-  },
-
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' },
