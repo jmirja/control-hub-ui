@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import { routes } from '@core/constants';
 import { IRequestUserResetPassword } from '@core/models/request/IRequestUserResetPassword';
 import { IRequestUserVerifyEmail } from '@core/models/request/IRequestUserVerifyEmail';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { IRequestUserForgotPassword } from '@core/models/request/IRequestUserForgotPassword';
 import { IRequestUserToken } from '@core/models/request/IRequestUserToken';
 
@@ -30,7 +29,15 @@ export class AuthService {
     private tokenService: TokenStorageService,
     private logService: LogService,
     private router: Router,
-  ) { }
+  ) {
+    this.checkAuthOnLoad();
+  }
+
+  private checkAuthOnLoad() {
+    const token = this.tokenService.getJwtToken();
+    const isLoggedIn = !!token;
+    this.loggedIn.next(isLoggedIn);
+  }
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
@@ -100,7 +107,7 @@ export class AuthService {
           this.loggedIn.next(true);
         }
         else {
-          throwError(() => 'login failed')
+          return result;
         }
         return result;
       })
